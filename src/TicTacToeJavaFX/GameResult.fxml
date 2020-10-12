@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane fx:id="myid" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="TicTacToeJavaFX.GameResultController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <top>
+        <VBox alignment="TOP_CENTER">
+            <Label></Label>
+            <Label fx:id="gameOverLabel" text="Game Over"></Label>
+        </VBox>
+    </top>
+
+    <left>
+        <Label text="   "></Label>
+    </left>
+
+    <center>
+        <VBox alignment="TOP_CENTER">
+            <Label fx:id="congratsLabel" text="Congrats"></Label>
+            <Label fx:id="winnerName" text="" textAlignment="CENTER"></Label>
+            <Label fx:id="complementLabel" text="for winning the game"></Label>
+            <Label text="   "></Label>
+
+            <HBox alignment="CENTER">
+                <Button fx:id="playAgainButton" text="Play Again"></Button>
+                <Label text="       "></Label>
+                <Button fx:id="exitGameButton" text="Exit Game"></Button>
+            </HBox>
+        </VBox>
+    </center>
+
+    <right>
+        <Label text="   "></Label>
+    </right>
+
+</BorderPane>
