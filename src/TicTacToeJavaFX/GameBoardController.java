@@ -1,25 +1,24 @@
 package TicTacToeJavaFX;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
+@SuppressWarnings({"UnusedDeclaration", "SameParameterValue"})
 public class GameBoardController {
 
     private String playerOneName, playerTwoName;
-    private int turnsCount = 0;
     private String playerOneSymbol;
     private String playerTwoSymbol;
     private String playerOneColor, playerTwoColor;
+    private int turnsCount = 0;
 
     @FXML
     private Button btn1;
@@ -40,198 +39,59 @@ public class GameBoardController {
     @FXML
     private Button btn9;
 
-    // this method set the width and height of the buttons which are going to be visible on the game board
-    private void setButtonDimensions(double width, double height) {
-        btn1.setPrefWidth(width / 3);
-        btn2.setPrefWidth(width / 3);
-        btn3.setPrefWidth(width / 3);
-        btn4.setPrefWidth(width / 3);
-        btn5.setPrefWidth(width / 3);
-        btn6.setPrefWidth(width / 3);
-        btn7.setPrefWidth(width / 3);
-        btn8.setPrefWidth(width / 3);
-        btn9.setPrefWidth(width / 3);
+    public void initialize() {
+        this.setButtonDimensions();
+        this.setButtonsFont(Main.BUTTON_DEFAULT_FONT_SIZE);
 
-        btn1.setPrefHeight(height / 3);
-        btn2.setPrefHeight(height / 3);
-        btn3.setPrefHeight(height / 3);
-        btn4.setPrefHeight(height / 3);
-        btn5.setPrefHeight(height / 3);
-        btn6.setPrefHeight(height / 3);
-        btn7.setPrefHeight(height / 3);
-        btn8.setPrefHeight(height / 3);
-        btn9.setPrefHeight(height / 3);
+        this.playerOneName = WelcomeScreenController.getPlayerOneName();
+        this.playerTwoName = WelcomeScreenController.getPlayerTwoName();
+
+        this.playerOneSymbol = WelcomeScreenController.getPlayerOneSymbol();
+        this.playerTwoSymbol = WelcomeScreenController.getPlayerTwoSymbol();
+
+        this.playerOneColor = WelcomeScreenController.getPlayerOneColor();
+        this.playerTwoColor = WelcomeScreenController.getPlayerTwoColor();
+
+        this.buttonClickHandler(btn1, btn2, btn3, btn4);
+        this.buttonClickHandler(btn5, btn6, btn7, btn8);
+        this.buttonClickHandlerTwo(btn9);
     }
 
-    public void initialize() {
-        setButtonDimensions(Main.STAGE_DEFAULT_WIDTH, Main.STAGE_DEFAULT_HEIGHT);
-        setButtonsFont(Main.BUTTON_DEFAULT_FONT_SIZE);
+    private void buttonClickHandler(
+            final Button btn1,
+            final Button btn2,
+            final Button btn3,
+            final Button btn4
+    ) {
+        this.clickHandler(btn1, btn2);
+        this.clickHandler(btn3, btn4);
+    }
 
-        if (WelcomeScreenController.getPlayerOneName().equals("")) {
-            playerOneName = "Player 1";
-        } else {
-            playerOneName = WelcomeScreenController.getPlayerOneName();
-        }
+    private void clickHandler(
+            final Button btn1,
+            final Button btn2
+    ) {
+        this.buttonClickHandlerTwo(btn1);
+        this.buttonClickHandlerTwo(btn2);
+    }
 
-        if (WelcomeScreenController.getPlayerTwoName().equals("")) {
-            playerTwoName = "Player 2";
-        } else {
-            playerTwoName = WelcomeScreenController.getPlayerTwoName();
-        }
-
-        playerOneSymbol = WelcomeScreenController.getPlayerOneSymbol();
-        playerTwoSymbol = WelcomeScreenController.getPlayerTwoSymbol();
-
-        playerOneColor = WelcomeScreenController.getPlayerOneColor();
-        playerTwoColor = WelcomeScreenController.getPlayerTwoColor();
-
-        btn1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (turnsCount % 2 == 0 && btn1.getText().equals("")) {
-                    turnsCount++;
-                    btn1.setText(playerOneSymbol);
-                    btn1.setTextFill(Paint.valueOf(playerOneColor));
-                } else if (turnsCount % 2 != 0 && btn1.getText().equals("")) {
-                    turnsCount++;
-                    btn1.setText(playerTwoSymbol);
-                    btn1.setTextFill(Paint.valueOf(playerTwoColor));
-                }
-                resultTest(Main.getPrimaryStage(), btn1.getText());
+    private void buttonClickHandlerTwo(final Button button) {
+        button.setOnMouseClicked(event -> {
+            if (turnsCount % 2 == 0 && button.getText().equals("")) {
+                turnsCount++;
+                button.setText(playerOneSymbol);
+                button.setTextFill(Paint.valueOf(playerOneColor));
+            } else if (turnsCount % 2 != 0 && button.getText().equals("")) {
+                turnsCount++;
+                button.setText(playerTwoSymbol);
+                button.setTextFill(Paint.valueOf(playerTwoColor));
             }
-        });
-
-        btn2.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (turnsCount % 2 == 0 && btn2.getText().equals("")) {
-                    turnsCount++;
-                    btn2.setText(playerOneSymbol);
-                    btn2.setTextFill(Paint.valueOf(playerOneColor));
-                } else if (turnsCount % 2 != 0 && btn2.getText().equals("")) {
-                    turnsCount++;
-                    btn2.setText(playerTwoSymbol);
-                    btn2.setTextFill(Paint.valueOf(playerTwoColor));
-                }
-                resultTest(Main.getPrimaryStage(), btn2.getText());
-            }
-        });
-
-        btn3.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (turnsCount % 2 == 0 && btn3.getText().equals("")) {
-                    turnsCount++;
-                    btn3.setText(playerOneSymbol);
-                    btn3.setTextFill(Paint.valueOf(playerOneColor));
-                } else if (turnsCount % 2 != 0 && btn3.getText().equals("")) {
-                    turnsCount++;
-                    btn3.setText(playerTwoSymbol);
-                    btn3.setTextFill(Paint.valueOf(playerTwoColor));
-                }
-                resultTest(Main.getPrimaryStage(), btn3.getText());
-            }
-        });
-
-        btn4.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (turnsCount % 2 == 0 && btn4.getText().equals("")) {
-                    turnsCount++;
-                    btn4.setText(playerOneSymbol);
-                    btn4.setTextFill(Paint.valueOf(playerOneColor));
-                } else if (turnsCount % 2 != 0 && btn4.getText().equals("")) {
-                    turnsCount++;
-                    btn4.setText(playerTwoSymbol);
-                    btn4.setTextFill(Paint.valueOf(playerTwoColor));
-                }
-                resultTest(Main.getPrimaryStage(), btn4.getText());
-            }
-        });
-
-        btn5.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (turnsCount % 2 == 0 && btn5.getText().equals("")) {
-                    turnsCount++;
-                    btn5.setText(playerOneSymbol);
-                    btn5.setTextFill(Paint.valueOf(playerOneColor));
-                } else if (turnsCount % 2 != 0 && btn5.getText().equals("")) {
-                    turnsCount++;
-                    btn5.setText(playerTwoSymbol);
-                    btn5.setTextFill(Paint.valueOf(playerTwoColor));
-                }
-                resultTest(Main.getPrimaryStage(), btn5.getText());
-            }
-        });
-
-        btn6.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (turnsCount % 2 == 0 && btn6.getText().equals("")) {
-                    turnsCount++;
-                    btn6.setText(playerOneSymbol);
-                    btn6.setTextFill(Paint.valueOf(playerOneColor));
-                } else if (turnsCount % 2 != 0 && btn6.getText().equals("")) {
-                    turnsCount++;
-                    btn6.setText(playerTwoSymbol);
-                    btn6.setTextFill(Paint.valueOf(playerTwoColor));
-                }
-                resultTest(Main.getPrimaryStage(), btn6.getText());
-            }
-        });
-
-        btn7.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (turnsCount % 2 == 0 && btn7.getText().equals("")) {
-                    turnsCount++;
-                    btn7.setText(playerOneSymbol);
-                    btn7.setTextFill(Paint.valueOf(playerOneColor));
-                } else if (turnsCount % 2 != 0 && btn7.getText().equals("")) {
-                    turnsCount++;
-                    btn7.setText(playerTwoSymbol);
-                    btn7.setTextFill(Paint.valueOf(playerTwoColor));
-                }
-                resultTest(Main.getPrimaryStage(), btn7.getText());
-            }
-        });
-
-        btn8.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (turnsCount % 2 == 0 && btn8.getText().equals("")) {
-                    turnsCount++;
-                    btn8.setText(playerOneSymbol);
-                    btn8.setTextFill(Paint.valueOf(playerOneColor));
-                } else if (turnsCount % 2 != 0 && btn8.getText().equals("")) {
-                    turnsCount++;
-                    btn8.setText(playerTwoSymbol);
-                    btn8.setTextFill(Paint.valueOf(playerTwoColor));
-                }
-                resultTest(Main.getPrimaryStage(), btn8.getText());
-            }
-        });
-
-        btn9.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (turnsCount % 2 == 0 && btn9.getText().equals("")) {
-                    turnsCount++;
-                    btn9.setText(playerOneSymbol);
-                    btn9.setTextFill(Paint.valueOf(playerOneColor));
-                } else if (turnsCount % 2 != 0 && btn9.getText().equals("")) {
-                    turnsCount++;
-                    btn9.setText(playerTwoSymbol);
-                    btn9.setTextFill(Paint.valueOf(playerTwoColor));
-                }
-                resultTest(Main.getPrimaryStage(), btn9.getText());
-            }
+            resultTest(Main.getPrimaryStage(), button.getText());
         });
     }
 
     // this method set the font size of the text which will be visible on the button (either 'O' or 'X')
-    private void setButtonsFont(double font) {
+    private void setButtonsFont(final double font) {
         Font font1 = new Font(font);
         btn1.setFont(font1);
         btn2.setFont(font1);
@@ -244,46 +104,66 @@ public class GameBoardController {
         btn9.setFont(font1);
     }
 
+    // this method set the width and height of the buttons which are going to be visible on the game board
+    private void setButtonDimensions() {
+        final double buttonWidth = Main.STAGE_DEFAULT_WIDTH / 3;
+        final double buttonHeight = Main.STAGE_DEFAULT_HEIGHT / 3;
+
+        btn1.setPrefSize(buttonWidth, buttonHeight);
+        btn2.setPrefSize(buttonWidth, buttonHeight);
+        btn3.setPrefSize(buttonWidth, buttonHeight);
+        btn4.setPrefSize(buttonWidth, buttonHeight);
+        btn5.setPrefSize(buttonWidth, buttonHeight);
+        btn6.setPrefSize(buttonWidth, buttonHeight);
+        btn7.setPrefSize(buttonWidth, buttonHeight);
+        btn8.setPrefSize(buttonWidth, buttonHeight);
+        btn9.setPrefSize(buttonWidth, buttonHeight);
+    }
+
     // this method check the all possible conditions of winning of a player and
     // also check for draw case when all blocks are filled with the data provided by the players playing game
-    private void resultTest(Stage primaryStage, String buttonText) {
-        if (btn1.getText().equals(btn2.getText()) && btn2.getText().equals(btn3.getText()) &&
-                !btn1.getText().equals("") && !btn2.getText().equals("") && !btn3.getText().equals("")) {
-            System.out.println("Game Over");
-            gameOverDialog(primaryStage, buttonText);
-        } else if (btn1.getText().equals(btn4.getText()) && btn4.getText().equals(btn7.getText()) &&
-                !btn1.getText().equals("") && !btn4.getText().equals("") && !btn7.getText().equals("")) {
-            System.out.println("Game Over");
-            gameOverDialog(primaryStage, buttonText);
-        } else if (btn3.getText().equals(btn6.getText()) && btn6.getText().equals(btn9.getText()) &&
-                !btn3.getText().equals("") && !btn6.getText().equals("") && !btn9.getText().equals("")) {
-            System.out.println("Game Over");
-            gameOverDialog(primaryStage, buttonText);
-        } else if (btn7.getText().equals(btn8.getText()) && btn8.getText().equals(btn9.getText()) &&
-                !btn7.getText().equals("") && !btn8.getText().equals("") && !btn9.getText().equals("")) {
-            System.out.println("Game Over");
-            gameOverDialog(primaryStage, buttonText);
-        } else if (btn3.getText().equals(btn5.getText()) && btn5.getText().equals(btn7.getText()) &&
-                !btn3.getText().equals("") && !btn5.getText().equals("") && !btn7.getText().equals("")) {
-            System.out.println("Game Over");
-            gameOverDialog(primaryStage, buttonText);
-        } else if (btn1.getText().equals(btn5.getText()) && btn5.getText().equals(btn9.getText()) &&
-                !btn1.getText().equals("") && !btn5.getText().equals("") && !btn9.getText().equals("")) {
-            System.out.println("Game Over");
-            gameOverDialog(primaryStage, buttonText);
-        } else if (btn2.getText().equals(btn5.getText()) && btn5.getText().equals(btn8.getText()) &&
-                !btn2.getText().equals("") && !btn5.getText().equals("") && !btn8.getText().equals("")) {
-            System.out.println("Game Over");
-            gameOverDialog(primaryStage, buttonText);
-        } else if (btn4.getText().equals(btn5.getText()) && btn5.getText().equals(btn6.getText()) &&
-                !btn4.getText().equals("") && !btn5.getText().equals("") && !btn6.getText().equals("")) {
-            System.out.println("Game Over");
+    private void resultTest(final Stage primaryStage, final String buttonText) {
+        final String buttonOneText = btn1.getText();
+        final String buttonTwoText = btn2.getText();
+        final String buttonThreeText = btn3.getText();
+
+        if (buttonOneText.equals(buttonTwoText) && buttonTwoText.equals(buttonThreeText) && !buttonOneText.equals("")) {
             gameOverDialog(primaryStage, buttonText);
         } else {
-            if (!btn1.getText().equals("") && !btn2.getText().equals("") && !btn3.getText().equals("") && !btn4.getText().equals("") && !btn5.getText().equals("") &&
-                    !btn6.getText().equals("") && !btn7.getText().equals("") && !btn8.getText().equals("") && !btn9.getText().equals("")) {
-                System.out.println("Game Draw");
-                gameOverDialog(primaryStage, "Draw");
+            final String buttonSevenText = btn7.getText();
+            final String buttonFourText = btn4.getText();
+
+            if (buttonOneText.equals(buttonFourText) && buttonFourText.equals(buttonSevenText) && !buttonOneText.equals("")) {
+                gameOverDialog(primaryStage, buttonText);
+            } else {
+                final String buttonSixText = btn6.getText();
+                final String buttonNineText = btn9.getText();
+
+                if (buttonThreeText.equals(buttonSixText) && buttonSixText.equals(buttonNineText) && !buttonThreeText.equals("")) {
+                    gameOverDialog(primaryStage, buttonText);
+                } else {
+                    final String buttonEightText = btn8.getText();
+
+                    if (buttonSevenText.equals(buttonEightText) && buttonEightText.equals(buttonNineText) && !buttonSevenText.equals("")) {
+                        gameOverDialog(primaryStage, buttonText);
+                    } else {
+                        final String buttonFiveText = btn5.getText();
+
+                        if (buttonThreeText.equals(buttonFiveText) && buttonFiveText.equals(buttonSevenText) && !buttonThreeText.equals("")) {
+                            gameOverDialog(primaryStage, buttonText);
+                        } else if (buttonOneText.equals(buttonFiveText) && buttonFiveText.equals(buttonNineText) && !buttonOneText.equals("")) {
+                            gameOverDialog(primaryStage, buttonText);
+                        } else if (buttonTwoText.equals(buttonFiveText) && buttonFiveText.equals(buttonEightText) && !buttonTwoText.equals("")) {
+                            gameOverDialog(primaryStage, buttonText);
+                        } else if (buttonFourText.equals(buttonFiveText) && buttonFiveText.equals(buttonSixText) && !buttonFourText.equals("")) {
+                            gameOverDialog(primaryStage, buttonText);
+                        } else {
+                            if (!buttonOneText.equals("") && !buttonTwoText.equals("") && !buttonThreeText.equals("") && !buttonFourText.equals("") && !buttonFiveText.equals("") && !buttonSixText.equals("") && !buttonSevenText.equals("") && !buttonEightText.equals("") && !buttonNineText.equals("")) {
+                                gameOverDialog(primaryStage, "Draw");
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -291,15 +171,15 @@ public class GameBoardController {
     // this method is used to display the final result of the game
     // this method will be called only when either any of player wins the game
     // or game get draw. In other cases, this method will not be called by resultTest method
-    private void gameOverDialog(Stage primaryStage, String buttonText) {
-        Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader();
+    private void gameOverDialog(final Stage primaryStage, final String buttonText) {
+        final FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("GameResult.fxml"));
-        GameResultController gameResultController = null;
+        GameResultController gameResultController;
 
         try {
             primaryStage.setScene(new Scene(fxmlLoader.load(), Main.STAGE_DEFAULT_WIDTH, Main.STAGE_DEFAULT_HEIGHT));
             gameResultController = fxmlLoader.getController();
+            Objects.requireNonNull(gameResultController);
 
             if (buttonText.equals("Draw")) {
                 gameResultController.setGameResultText("Draw", "");
@@ -314,4 +194,5 @@ public class GameBoardController {
             e.printStackTrace();
         }
     }
+
 }

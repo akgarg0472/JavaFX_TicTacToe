@@ -11,7 +11,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
 
+@SuppressWarnings("UnusedDeclaration")
 public class GameResultController {
 
     @FXML
@@ -27,8 +30,30 @@ public class GameResultController {
     @FXML
     private Button exitGameButton;
 
+    public void initialize() {
+        this.playAgainButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    final URL welcomeScreenResource = getClass().getResource("WelcomeScreen.fxml");
+                    Objects.requireNonNull(welcomeScreenResource, "Error loading game welcome screen");
+
+                    Main.getPrimaryStage().setScene(new Scene(
+                            FXMLLoader.load(welcomeScreenResource),
+                            Main.STAGE_DEFAULT_WIDTH,
+                            Main.STAGE_DEFAULT_HEIGHT
+                    ));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        exitGameButton.setOnMouseClicked(event -> Main.getPrimaryStage().close());
+    }
+
     // this method dynamically update the content of the final result scene of the game according to the game result
-    void setGameResultText(String gameResultText1, String winner) {
+    void setGameResultText(final String gameResultText1, final String winner) {
         if (gameResultText1.equals("Draw")) {
             gameOverLabel.setFont(Font.font("Algerian", FontWeight.BOLD, 45));
             congratsLabel.setFont(new Font(35));
@@ -53,24 +78,4 @@ public class GameResultController {
         }
     }
 
-    public void initialize() {
-        playAgainButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    Main.getPrimaryStage().setScene(new Scene
-                            (FXMLLoader.load(getClass().getResource("WelcomeScreen.fxml")), Main.STAGE_DEFAULT_WIDTH, Main.STAGE_DEFAULT_HEIGHT));
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-            }
-        });
-
-        exitGameButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Main.getPrimaryStage().close();
-            }
-        });
-    }
 }

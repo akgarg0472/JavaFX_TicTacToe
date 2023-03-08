@@ -1,27 +1,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane fx:controller="TicTacToeJavaFX.GameBoardController"
-            xmlns:fx="http://javafx.com/fxml">
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="TicTacToeJavaFX.GameBoardController">
     <center>
         <VBox>
             <HBox>
-                <Button fx:id="btn1"></Button>
-                <Button fx:id="btn2"></Button>
-                <Button fx:id="btn3"></Button>
+                <Button fx:id="btn1"/>
+                <Button fx:id="btn2"/>
+                <Button fx:id="btn3"/>
             </HBox>
+
             <HBox>
-                <Button fx:id="btn4"></Button>
-                <Button fx:id="btn5"></Button>
-                <Button fx:id="btn6"></Button>
+                <Button fx:id="btn4"/>
+                <Button fx:id="btn5"/>
+                <Button fx:id="btn6"/>
             </HBox>
+
             <HBox>
-                <Button fx:id="btn7"></Button>
-                <Button fx:id="btn8"></Button>
-                <Button fx:id="btn9"></Button>
+                <Button fx:id="btn7"/>
+                <Button fx:id="btn8"/>
+                <Button fx:id="btn9"/>
             </HBox>
         </VBox>
     </center>
+
     <bottom>
-        <Label fx:id="bottomCopyrightLabel" text="©Akhilesh Garg" BorderPane.alignment="BOTTOM_CENTER"></Label>
+        <Label fx:id="bottomCopyrightLabel" text="©Akhilesh Garg" BorderPane.alignment="BOTTOM_CENTER"/>
     </bottom>
+
 </BorderPane>

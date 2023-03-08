@@ -1,7 +1,6 @@
-module SampleJavaFX {
-
-    requires javafx.fxml;
-    requires javafx.controls;
-
-    opens TicTacToeJavaFX;
-}
+//module SampleJavaFX {
+//    requires jfxrt;
+//    requires rt;
+//
+//    opens TicTacToeJavaFX;
+//}
